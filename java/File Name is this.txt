@@ -1,0 +1,9 @@
+Hello World! This is my file saving program. It doesn't do much but write this text to the file named at the top. I also should figure out
+Word Wrap Because trailing long lines together is silly
+	This is a tab, it looks huge in my text input, but normal
+	in the file. Maybe if I open it with leafpad it will end up looking odd.
+
+Who knows?
+
+
+-Robert Rico

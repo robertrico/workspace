@@ -1,0 +1,14 @@
+#my funcs
+
+drink(){
+	echo "Drink"
+}
+
+adds(){
+	echo "$1$2 $3"
+}
+
+numbers(){
+	fran=$1
+	echo $(($fran + 5))
+}

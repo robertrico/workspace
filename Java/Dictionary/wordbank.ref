@@ -1,0 +1,39 @@
+19
+set
+"A set is a collection of "things" called "elements" or "members"."
+sequence
+"A set, where order is relevant and important."
+universal set
+"The symbol U is used to denote the 'Universal Set', which is all elements under consideration."
+set-builder notation
+"Denoted as {x | (requirements of set)}, good for infinite sets."
+finite set
+"A set with a determined amount of elements."
+infinite set
+"A set with an infinite amount of elements."
+empty set
+"Also called a void, or null set. A set that contains no elements."
+cardinality
+"The number of elements contained within a set. Denoted by "| |"."
+subset
+"Every element of X is an element of Y. That is, a subset is defined as a set whose elements are contained within a parent set."
+proper subset
+"Like a subset, but the two sets cannot be equal. If Y is a subset of X, and does not equal X, it is proper subset."
+power set
+"The set of all subsets, proper or not of a set."
+union
+"Denoted with U, such as X U Y. All the elements belonging to either X or Y. Elements of one, but not the other."
+intersection
+, it is all elements belonging to both Y and X."
+disjoint
+"X and Y are disjoint, if the Intersection of X and Y is Null/Empty/Void."
+pairwise disjoint
+"A collection of sets is said to be pairwise disjoint if whenever X and Y are distinct sets in S, X and Y are disjoint."
+difference
+"Or relative complement, All elements of X that are not in Y"
+complement
+"Given a Universal set U and Subset X, the set U - X is called the Complement of X."
+partition
+"A collection of nonempty subsets of X for which every element in X belongs to exactly one member of S. A={1,2,3,4} Partitions of A are: B={1,3} and C={2,4}"
+cartesian product
+"X x Y, Set of all ordered pairs (x,y) where x is an element of X and y is an element of Y."
