@@ -1,4 +1,4 @@
-19
+20
 set
 "A set is a collection of "things" called "elements" or "members"."
 sequence
@@ -37,3 +37,5 @@ partition
 "A collection of nonempty subsets of X for which every element in X belongs to exactly one member of S. A={1,2,3,4} Partitions of A are: B={1,3} and C={2,4}"
 cartesian product
 "X x Y, Set of all ordered pairs (x,y) where x is an element of X and y is an element of Y."
+corinne
+The love of my butt.
