@@ -20,20 +20,20 @@ public class DiscreteDefinitions extends Dictionary{
         helpDef = new String[help.length];
         for (int i=0;i<bank.length;i++){ //creates an array from data file       
 			bank[i]=fileIn.nextLine().toLowerCase();
-            System.out.println(bank[i]);
+            //System.out.println(bank[i]);
 			definitions[i]=fileIn.nextLine();
 		}
         this.help = new String[helpFile.nextInt()];
         helpFile.nextLine();
         for (int i=0;i<help.length;i++){ //creates an array from data file       
 			help[i]=helpFile.nextLine().toLowerCase();
-            System.out.println(help[i]);
+            //System.out.println(help[i]);
 			helpDef[i]=helpFile.nextLine();
 		}
     }
     
     public void define(String word, Scanner input){
-        if (word.equalsIgnoreCase("/quit")){
+        if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
             quit();
         }
         if (word.equalsIgnoreCase("/bank")){
@@ -42,7 +42,7 @@ public class DiscreteDefinitions extends Dictionary{
             System.out.println("Enter a word to be defined: ");
             define(input.nextLine(),input);
         }
-        if (word.equalsIgnoreCase("/help")){
+        if (word.equalsIgnoreCase("/help") || word.equalsIgnoreCase("/?")){
             getHelp();
             System.out.println("\n");
             System.out.println("Enter a help function to be defined: ");
@@ -81,7 +81,7 @@ public class DiscreteDefinitions extends Dictionary{
         System.out.println("----------------------");
         System.out.println("------WORD BANK------");
         System.out.println("----------------------");
-        for (int i=0;i<bank.length;i++){ //creates an array from data file       
+        for (int i=0;i<bank.length;i++){        
             System.out.println(bank[i]);
 		}
     }
@@ -92,7 +92,7 @@ public class DiscreteDefinitions extends Dictionary{
         System.out.println("---------HELP---------");
         System.out.println("----------------------");
 
-        for (int i=0;i<help.length;i++){ //creates an array from data file       
+        for (int i=0;i<help.length;i++){        
             System.out.println(help[i]);
 		}
     }

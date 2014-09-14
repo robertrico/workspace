@@ -1,4 +1,4 @@
-20
+33
 set
 "A set is a collection of "things" called "elements" or "members"."
 sequence
@@ -39,3 +39,29 @@ cartesian product
 "X x Y, Set of all ordered pairs (x,y) where x is an element of X and y is an element of Y."
 corinne
 The love of my butt.
+logic
+"Logic is the basis of all mathematical reasoning."
+argument
+"Consists of assumptions and conclusions
+assumptions
+"hypothesis premises, or givin propositions"
+conclusions
+"Propositions that follows from assumptions"
+logical operators
+" AND, OR, and NOT"
+proposition
+"A declarative sentence that is either true, or false, but not both"
+formal logic
+"Concerning form rather than content
+negation
+"NOT"
+conjuction
+"AND"
+disjunction
+"OR"
+converse
+"(Given the hypothesis p, and the conclusion q) 'If p, then q'"
+contrapositive
+"(Given the hypothesis p, and the conclusion q) 'If not q, then not p'"
+inverse
+"(Given the hypothesis p, and the conclusion q) 'If not p, then not q'"

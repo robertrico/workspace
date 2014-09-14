@@ -10,7 +10,7 @@ public class Dictionary{
         while (!ans.equalsIgnoreCase("quit")){
             System.out.println("\n");
             System.out.println("Enter a word to be defined: ");
-            ans = input.nextLine();
+            ans = input.nextLine();word.equalsIgnoreCase("/help")
             if (ans.equalsIgnoreCase("quit") || ans.equalsIgnoreCase("q")){
                definitions.quit();
             } 
@@ -25,7 +25,8 @@ public class Dictionary{
         System.out.println("\n");
         System.out.println("Enter a word for it's definition");
         System.out.println("\n");
-        System.out.println("To quit type \"quit\" or \"q\" at anytime.");
+        System.out.println("To quit type /quit or /q at anytime.");
+        System.out.println("For the help menu, type /help or /?");
         /*System.out.println("");
         System.out.println("");
         System.out.println("");*/
