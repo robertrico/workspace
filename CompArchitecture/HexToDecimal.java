@@ -8,7 +8,7 @@ public class HexToDecimal{
     private String integer;
     /*Constructor goodness*/
     public HexToDecimal(){
-       hex = new String[] {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","D","E","F"};
+       hex = new String[] {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
        base_sixteen = new int[32];
        base_sixteen = buildHex();
        //letters = 
@@ -36,15 +36,28 @@ public class HexToDecimal{
     public void convertFromHex(String x){
         integer = x;
         String[] convert = this.integer.split("");
+        convert = stringPop(convert);
         int converted = 0;
         for(int i = 0; i < x.length(); i++){
-            converted += base_sixteen[Arrays.asList(hex).indexOf(convert[i])];
-            //System.out.print(converted);
+            
+            //System.out.println(convert[i]);
+            converted += (base_sixteen[Arrays.asList(hex).indexOf(convert[i])]);
+            //System.out.println(base_sixteen[i]);
+            //System.out.print(hex[i]);
         }
         System.out.println("\n");
         System.out.println("The Conversion for "+x+" is");
         System.out.println(converted);   
     } 
+    public String[] stringPop(String[] array){
+        String [] freshArray = new String [array.length];
+        for (int i = 1; i < array.length; i++){
+            freshArray[i-1]= array[i];
+        }
+        return freshArray;
+    }
+
+
 
 
 

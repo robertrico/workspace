@@ -34,7 +34,7 @@ public class DiscreteDefinitions extends Dictionary{
     
     public void define(String word, Scanner input){
         if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
-            quit();
+            //quit();
         }
         if (word.equalsIgnoreCase("/bank")){
             getBank();
@@ -98,7 +98,7 @@ public class DiscreteDefinitions extends Dictionary{
     }
     public void helpDefine(String word, Scanner input){
         if (word.equalsIgnoreCase("/quit")){
-            quit();
+            //quit();
         }
 
         String symbol = "";

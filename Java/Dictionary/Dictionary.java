@@ -10,7 +10,7 @@ public class Dictionary{
         while (!ans.equalsIgnoreCase("quit")){
             System.out.println("\n");
             System.out.println("Enter a word to be defined: ");
-            ans = input.nextLine();word.equalsIgnoreCase("/help")
+            ans = input.nextLine();
             if (ans.equalsIgnoreCase("quit") || ans.equalsIgnoreCase("q")){
                definitions.quit();
             } 
