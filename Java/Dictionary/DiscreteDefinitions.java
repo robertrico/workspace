@@ -116,6 +116,7 @@ public class DiscreteDefinitions extends Dictionary{
             System.out.println("Enter a help function to be defined: ");
             helpDefine(input.nextLine(),input);
             define(input);
+            //Update Comment
         }
     }
 
