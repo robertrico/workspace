@@ -6,31 +6,25 @@ public class Dictionary{
         Scanner input = new Scanner(System.in);
         DiscreteDefinitions definitions = new DiscreteDefinitions(input);
         greeting();
-        String ans = "";
-        while (!ans.equalsIgnoreCase("quit")){
-            System.out.println("\n");
-            System.out.println("Enter a word to be defined: ");
-            ans = input.nextLine();
-            if (ans.equalsIgnoreCase("quit") || ans.equalsIgnoreCase("q")){
-               definitions.quit();
-            } 
-            definitions.define(ans,input);
-        }
+        definitions.define(input);
     }
 
     public static void greeting(){
         System.out.println("\n");
-        System.out.println("*++----------------------------------------++*");
-        System.out.println("Welcome to the Discrete Structures dictionary.");
-        System.out.println("\n");
-        System.out.println("Enter a word for it's definition");
-        System.out.println("\n");
-        System.out.println("To quit type /quit or /q at anytime.");
-        System.out.println("For the help menu, type /help or /?");
-        /*System.out.println("");
-        System.out.println("");
-        System.out.println("");*/
-        System.out.println("*++----------------------------------------++*");
+        System.out.println("************************************************");
+        System.out.println("************************************************");
+        System.out.println("**************--Welcome to the--****************");
+        System.out.println("*******--Discrete Structures Dictionary--*******");
+        System.out.println("************************************************");
+        System.out.println("*****--Enter a word for it's definition--*******");
+        System.out.println("*****--To see the wordbank enter \"/bank\"--******");
+        System.out.println("************************************************");
+        System.out.println("***--To quit type /quit or /q at anytime.--*****");
+        System.out.println("****--For the help menu, type /help or /?--*****");
+        System.out.println("************************************************");
+        System.out.println("*********************************--Written By--*");
+        System.out.println("********************************--Robert Rico--*");
+        System.out.println("************************************************");
     }
     
     public void quit(){

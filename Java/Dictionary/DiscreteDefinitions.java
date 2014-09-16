@@ -32,24 +32,11 @@ public class DiscreteDefinitions extends Dictionary{
 		}
     }
     
-    public void define(String word, Scanner input){
-        if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
-            //quit();
-        }
-        if (word.equalsIgnoreCase("/bank")){
-            getBank();
-            System.out.println("\n");
-            System.out.println("Enter a word to be defined: ");
-            define(input.nextLine(),input);
-        }
-        if (word.equalsIgnoreCase("/help") || word.equalsIgnoreCase("/?")){
-            getHelp();
-            System.out.println("\n");
-            System.out.println("Enter a help function to be defined: ");
-            helpDefine(input.nextLine(),input);
-            return;
-        }
-
+    public void define(Scanner input){
+        System.out.println("\n");
+        System.out.println("Enter a word from the wordbank to be defined: ");
+        String word = input.nextLine();
+        this.action(word,input);
         String symbol = "";
         //System.out.println(word);
         //word = word.replaceAll("\\s","");
@@ -58,9 +45,7 @@ public class DiscreteDefinitions extends Dictionary{
         if (indice == -1){
             System.out.println("\n");
             System.out.println("Not found, please check your spelling or add word to bank.");
-            System.out.println("Enter a word to be defined: ");
-            define(input.nextLine(),input);
-            return;
+            define(input);
         }
 
         /* Need a gracefull fail system 
@@ -72,6 +57,7 @@ public class DiscreteDefinitions extends Dictionary{
         System.out.println(bank[indice]);
         System.out.println("----------------------");
         System.out.println(symbol+definitions[indice]);
+        define(input);
         
         
     }
@@ -97,18 +83,14 @@ public class DiscreteDefinitions extends Dictionary{
 		}
     }
     public void helpDefine(String word, Scanner input){
-        if (word.equalsIgnoreCase("/quit")){
-            //quit();
-        }
-
+        action(word, input);
         String symbol = "";
         int indice = Arrays.asList(this.help).indexOf(word.toLowerCase());
         if (indice == -1){
             System.out.println("\n");
             System.out.println("Not found, please check your spelling or add word to bank.");
-            System.out.println("Enter a word to be defined: ");
-            define(input.nextLine(),input);
-            return;
+            System.out.println("Enter a help function to be defined: ");
+            helpDefine(input.nextLine(),input);
         }
 
         System.out.println("\n");
@@ -117,6 +99,24 @@ public class DiscreteDefinitions extends Dictionary{
         System.out.println(helpDef[indice]);
         
         
+    }
+
+    public void action(String word,Scanner input){
+        if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
+            quit();
+        }
+        if (word.equalsIgnoreCase("/bank")){
+            getBank();
+            define(input);
+            return;
+        }
+        if (word.equalsIgnoreCase("/help") || word.equalsIgnoreCase("/?")){
+            getHelp();
+            System.out.println("\n");
+            System.out.println("Enter a help function to be defined: ");
+            helpDefine(input.nextLine(),input);
+            define(input);
+        }
     }
 
 }
