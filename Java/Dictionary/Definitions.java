@@ -2,45 +2,51 @@ import java.io.*;
 import java.util.*;
 import java.util.Arrays;
 
-public class DiscreteDefinitions extends Dictionary{
+public class Definitions extends Dictionary{
     private String word;
     private String definitions[];
     private String helpDef[];
     private String bank[];
     private String help[];
     private Scanner input;
+    private String wordbank;
 
-    public DiscreteDefinitions(Scanner input) throws FileNotFoundException{
-        this.help = new String[] {"/quit","/help","/bank"};
-        Scanner fileIn = new Scanner(new File("wordbank.ref"));
-        Scanner helpFile = new Scanner(new File("help.ref"));
+    public Definitions(Scanner input,String filename) throws FileNotFoundException{
+
+        wordbank = filename;
+        /* The Help has to be first in order for it to 
+         * properly assign the actual wordbank.
+         * Need to test with new word bank
+         */
+        String [][] helpArrs = buildDefinitionsArray("help");
+        this.help = helpArrs[0];
+        this.helpDef = helpArrs[1];
+        /* Possible reduncancy reduction */
+        String [][] defArr = buildDefinitionsArray(filename);
+        this.bank = defArr[0];
+        this.definitions = defArr[1]; 
+    }
+
+    public String[][] buildDefinitionsArray(String filename) throws FileNotFoundException{
+        Scanner fileIn = new Scanner(new File(filename+".ref"));
         this.bank = new String[fileIn.nextInt()];
-        fileIn.nextLine();
         definitions = new String[bank.length];
-        helpDef = new String[help.length];
+        fileIn.nextLine();
         for (int i=0;i<bank.length;i++){ //creates an array from data file       
 			bank[i]=fileIn.nextLine().toLowerCase();
             //System.out.println(bank[i]);
 			definitions[i]=fileIn.nextLine();
 		}
-        this.help = new String[helpFile.nextInt()];
-        helpFile.nextLine();
-        for (int i=0;i<help.length;i++){ //creates an array from data file       
-			help[i]=helpFile.nextLine().toLowerCase();
-            //System.out.println(help[i]);
-			helpDef[i]=helpFile.nextLine();
-		}
-    }
-    
+        // Create an array of arrays for assignments
+        String[][] bigArr = new String[][] {bank,definitions};
+        return bigArr;
+    } 
+
     public void define(Scanner input){
         System.out.println("\n");
-        System.out.println("Enter a word from the wordbank to be defined: ");
+        System.out.println("Enter a word from the wordbank "+wordbank+" to be defined: ");
         String word = input.nextLine();
         this.action(word,input);
-        String symbol = "";
-        //System.out.println(word);
-        //word = word.replaceAll("\\s","");
-        //System.out.println(word);
         int indice = Arrays.asList(this.bank).indexOf(word.toLowerCase());
         if (indice == -1){
             System.out.println("\n");
@@ -48,15 +54,10 @@ public class DiscreteDefinitions extends Dictionary{
             define(input);
         }
 
-        /* Need a gracefull fail system 
-         * Also, apply more symbols*/
-        if (word.equals("intersection")){
-            symbol = "Denoted with \"\u2229";
-        }
         System.out.println("\n");
         System.out.println(bank[indice]);
         System.out.println("----------------------");
-        System.out.println(symbol+definitions[indice]);
+        System.out.println(definitions[indice]);
         define(input);
         
         
@@ -84,7 +85,6 @@ public class DiscreteDefinitions extends Dictionary{
     }
     public void helpDefine(String word, Scanner input){
         action(word, input);
-        String symbol = "";
         int indice = Arrays.asList(this.help).indexOf(word.toLowerCase());
         if (indice == -1){
             System.out.println("\n");
@@ -97,18 +97,25 @@ public class DiscreteDefinitions extends Dictionary{
         System.out.println(help[indice]);
         System.out.println("----------------------");
         System.out.println(helpDef[indice]);
-        
-        
     }
 
     public void action(String word,Scanner input){
+        if (word.equalsIgnoreCase("/switch") || word.equalsIgnoreCase("/s")){
+            try
+            {
+                super.chooseBank();
+            }
+            catch (FileNotFoundException e)
+           {
+            // Handle the exception
+           }
+        }
         if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
             quit();
         }
         if (word.equalsIgnoreCase("/bank")){
             getBank();
             define(input);
-            return;
         }
         if (word.equalsIgnoreCase("/help") || word.equalsIgnoreCase("/?")){
             getHelp();
@@ -118,6 +125,8 @@ public class DiscreteDefinitions extends Dictionary{
             define(input);
             //Update Comment
         }
-    }
+       
+    } 
+    
 
 }
