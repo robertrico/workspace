@@ -89,6 +89,7 @@ public class Definitions extends Dictionary{
         if (indice == -1){
             System.out.println("\n");
             System.out.println("Not found, please check your spelling or add word to bank.");
+            System.out.println("Use a / followed by a help function to use.");
             System.out.println("Enter a help function to be defined: ");
             helpDefine(input.nextLine(),input);
         }

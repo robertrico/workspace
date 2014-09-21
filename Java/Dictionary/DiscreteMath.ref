@@ -1,4 +1,4 @@
-33
+36
 set
 "A set is a collection of "things" called "elements" or "members"."
 sequence
@@ -65,3 +65,9 @@ contrapositive
 "(Given the hypothesis p, and the conclusion q) 'If not q, then not p'"
 inverse
 "(Given the hypothesis p, and the conclusion q) 'If not p, then not q'"
+domain of discourse
+"Let D be a set, and P(x) be a proposition invloving x. If for each x ∈ D, P(x) is a proposition, we Call D the domain of discourse of P"
+propositional function
+"A function of propositions. Essentially a propsition containing an element that can be changed, denoted like P(x), with x being a variable. Search 'propositional function example'"
+propositional function example
+"Let P be the proposition 'THIS OPERATING SYSTEM is the best.' THIS OPERATING SYSTEM is the variable here. P(Linux) = 'Linux is the best' also, P(Windows) = 'Windows is the best', and lastly P(OsX) = 'OsX is the best'"
