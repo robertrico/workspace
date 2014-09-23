@@ -9,10 +9,12 @@ public class Definitions extends Dictionary{
     private String bank[];
     private String help[];
     private Scanner input;
+    private Scanner fileIn;
     private String wordbank;
+    private File file;
 
     public Definitions(Scanner input,String filename) throws FileNotFoundException{
-
+        file = new File(filename+".ref");
         wordbank = filename;
         /* The Help has to be first in order for it to 
          * properly assign the actual wordbank.
@@ -28,7 +30,7 @@ public class Definitions extends Dictionary{
     }
 
     public String[][] buildDefinitionsArray(String filename) throws FileNotFoundException{
-        Scanner fileIn = new Scanner(new File(filename+".ref"));
+        Scanner fileIn = new Scanner(file);
         this.bank = new String[fileIn.nextInt()];
         definitions = new String[bank.length];
         fileIn.nextLine();
@@ -111,14 +113,17 @@ public class Definitions extends Dictionary{
             // Handle the exception
            }
         }
-        if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
+        else if (word.equalsIgnoreCase("/quit") || word.equalsIgnoreCase("/q")){
             quit();
         }
-        if (word.equalsIgnoreCase("/bank")){
+        else if (word.equalsIgnoreCase("/bank")){
             getBank();
             define(input);
         }
-        if (word.equalsIgnoreCase("/help") || word.equalsIgnoreCase("/?")){
+        else if (word.equalsIgnoreCase("/add")){
+            addDef(file);
+        }
+        else if (word.equalsIgnoreCase("/help") || word.equalsIgnoreCase("/?")){
             getHelp();
             System.out.println("\n");
             System.out.println("Enter a help function to be defined: ");
@@ -128,6 +133,18 @@ public class Definitions extends Dictionary{
         }
        
     } 
+     
+    public void addDef(File file){
+            try
+            {
+                Scanner fileIn = new Scanner (file);
+            }
+            catch (FileNotFoundException e)
+           {
+            // Handle the exception
+           }
+
+    }
     
 
 }
