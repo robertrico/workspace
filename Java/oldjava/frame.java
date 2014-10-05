@@ -5,8 +5,8 @@ import java.awt.event.*;
 import java.io.*;
 
     public class frame extends Frame implements WindowListener{
-        private JTextField text;
-        private JTextArea boxes;
+        private static final JTextField text;
+        private static final JTextArea boxes;
         private Label saveTitle;
         private JButton b;
         private JButton op;
