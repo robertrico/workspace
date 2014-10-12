@@ -1,0 +1,7 @@
+What are the registers in a 16-bit CPU?
+What mnemonic is used for the move instruction?
+What mnemonic is used for the add instruction?
+What mnemonic is used for the subtract instruction?
+What mnemonic is used for the compare instruction?
+What mnemonic is used for the jump instruction?
+What mnemonic is used for the loop instruction?
