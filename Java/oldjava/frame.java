@@ -5,8 +5,8 @@ import java.awt.event.*;
 import java.io.*;
 
     public class frame extends Frame implements WindowListener{
-        private static final JTextField text;
-        private static final JTextArea boxes;
+        private final TextField text;
+        private final TextArea boxes;
         private Label saveTitle;
         private JButton b;
         private JButton op;
@@ -20,10 +20,10 @@ import java.io.*;
 
 
 
-                JTextField text = new JTextField(20);
+                TextField text = new TextField(20);
                 text.setBounds(110,760,100,25);
 
-                JTextArea boxes = new JTextArea("", 40, 75);
+                TextArea boxes = new TextArea("", 40, 75);
                 boxes.setBounds(10,50,780,700);
 
                 saveTitle = new Label("File Name");

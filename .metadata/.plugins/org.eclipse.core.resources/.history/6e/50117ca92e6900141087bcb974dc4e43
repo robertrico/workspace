@@ -1,0 +1,451 @@
+package mylinkedlist;
+import java.util.*;
+
+/**
+ * <b>MyLinkedList</b><br/>
+ * An implementation of Java's LinkedList
+ *<p>
+ * @author Robert Rico<br/><b>ID:</b>1486
+ * @version 1.5
+ * @see mylinkedlist.ListNode
+ * @see mylinkedlist.MyIterator
+ * @link ListNode
+ * @link MyIterator
+ */
+public class MyLinkedList<E> implements Iterable<E> {
+
+    private ListNode<E> first;
+    private ListNode<E> last;
+    private int len;
+    
+    /**
+     * <b>Constructs new list</b>
+     * @see MyLinkedList.clear()
+     */
+    public MyLinkedList() {
+        clear();
+    }
+    /**
+     * <b>Set or reset a list to create empty list</b>
+     * @param first The first element of the list
+     * @param last  The last element of the list
+     * @param len   Length of the list
+     */
+    public void clear(){
+        first = null;
+        last = null;
+        len = 0;
+    }
+
+    /**
+     * <b>An iterator implementation to traverse the list</b>
+     * @throws NullPointer if the list is empty
+     * @return object or null
+     */
+    public Iterator<E> iterator(){
+        try{
+            return new MyIterator<E>(first,first.next,len);
+        }catch(NullPointerException e){
+            return null;
+        }
+    }
+
+    /**
+     * <b>Returns the size of the list</b>
+     * @return int size of the list
+     */
+    public int size() {         
+        return len;
+    }
+    /**
+     *<b> Returns true if the list is empty, false otherwise</b>
+     * @return boolean 
+     */
+    public boolean isEmpty() {  
+        return (len == 0) ? true:false;
+    }
+
+    /**
+     *<b> Adds an element to the list</b>
+     * @param E data a generic data type according to list type
+     * @return boolean
+     */
+    public boolean add(E data){
+        //If the list is empty, add an element to the beginning
+        if(len == 0){
+            addFirst(data);
+        } else {
+        //If the list contains elements, place the new element at the end
+            addLast(data);
+        }
+        //Increase list size
+        len++;
+        return true;
+    }
+
+    /**
+     *<b> Overloaded Add method, adds an element to the specified index</b>
+     * @index int The position at which to add the element
+     * @d     E   The generic data to add to the list
+     */
+    public void add(int index,E d) { 
+        //If index is zero, add to beginning
+        if(index == 0){
+            addFirst(d);
+            len++;
+            return;
+        //If index is one more then the last element, add to end
+        }else if(index == len){
+            addLast(d);
+            len++;
+            return;
+        }
+        ListNode<E> current = getNode(index-1);
+        ListNode<E> insert = new ListNode<E>(d,current.next,current); 
+        current.next = insert;
+        insert.next.previous = insert;
+        len++;
+    }
+    /**
+     *<b> Adds element to the beginning of the list.</b>
+     * @param d The data to be added to the list.
+     */
+    public void addFirst(E d) {     
+        if(len == 0){
+            last = first = new ListNode<E>(d,null,null);
+        }else{
+            first.previous = new ListNode<E>(d,first,null);
+            first = first.previous;
+
+        }
+
+    }
+    /**
+     *<b> Adds an element to the end of the list.</b>
+     * @param d The data to be added to the list.
+     */
+    public void addLast(E d) {      
+        last.next = new ListNode<E>(d,null,last);
+        last = last.next;
+        
+    }
+    
+
+    /**
+     *<b> The String Representation of MyLinkedList.</b>
+     * <br/>
+     * Prints the data
+     */
+    public String toString() {
+        if (len <= 0) {
+            return "[]";
+        } else {
+            String res = "[" + first.data;
+            ListNode<E> cur = first.next;
+            while (cur != null) {
+                res = res + "," + cur.data;
+                cur = cur.next;
+            }
+            return res + "]";
+        }
+    }
+
+    /**
+     *<b> Determines of the list contains an element.</b>
+     * @param data The data to see if is contained.
+     * @return boolean
+     */
+    public boolean contains(E data){
+        boolean contains = false;
+        if (len==0){
+            return contains; 
+        }else {
+            ListNode<E> current = first;
+            while (current.next != null){
+                if (current.data.equals(data)){
+                    contains = true;
+                }
+                current = current.next;
+            }
+        }
+        return contains;
+    }
+    /**
+     *<b> Gets the index of data passes in. </b>
+     * @param data Data to get index of.
+     * @return Index of passed in data. -1 If not found.
+     */
+    public int indexOf(Object data){
+        if (len==0){
+            return -1; 
+        }else {
+            ListNode<E> current = first;
+            for (int i = 0; i < len; i++){
+                if (current.data.equals(data)){
+                    return i;
+                }
+                current = current.next;
+            }
+        }
+        return -1;
+    }
+    /**
+     *<b> Determines the last occurrence of data in the list.</b>
+     * @param data The data to get last index of.
+     * @return The index of data, or -1 if not found.
+     */
+    public int lastIndexOf(Object data){
+        if (len==0){
+            return -1; 
+        }
+        ListNode<E> current = last;
+        for (int i = len-1; i >= 0; i--){
+            if (current.data.equals(data)){
+                return i;
+            }
+            current = current.previous;
+        }
+        return -1;
+    }
+
+
+    /**
+     *<b> Sets the specified index to the passed in variable.</b>
+     * @param index The index at which to set the variable.
+     * @param data The data to be placed at the index.
+     * @return The data that is being replaced.
+     */
+    public E set(int index,E data){
+        try {
+            ListNode<E> node = getNode(index);
+            E tmp = node.data;
+            node.data = data;
+            return tmp;
+        }catch(IndexOutOfBoundsException e){
+            System.out.println(e);
+            return null;
+        }
+    }
+    /**
+     *<b> Obtain the ListNode at the specific index.</b>
+     * @see ListNode\<E\>
+     * @param index The position of the desired ListNode.
+     * @return The ListNode object at the index.
+     */
+    public ListNode<E> getNode(int index){
+        ListNode<E> node = first;
+        for (int i = 0; i < index; i++){
+            node = node.next;
+        }
+        return node;
+    }
+
+    /**
+     *<b> Obtains the data at the desired index.</b>
+     * @param index The index at which to obtain the data.
+     * @return The data at the index.
+     */
+    public E get(int index) {   
+        try{
+            if (index==0) {
+                return first.data;
+            } else if(index == len - 1){
+                return last.data;
+            } else {
+                ListNode<E> current = first.next;
+                for(int i = 1; i < index; i++){
+                    current = current.next;
+                }
+                return current.data;
+
+            }
+        }catch(Exception e){
+            return null;
+        }
+    }
+
+    /**
+     *<b> Removes the first occurrence of the desired data.</b>
+     * @param data The data to be removed.
+     * @return True on successful removal.
+     */
+    public boolean remove(Object data){
+        if(data.equals(first.data)){
+            removeFirst();
+            return true;
+        }else {
+            ListNode<E> current = first.next;
+            for(int i = 1;i < len; i++){
+                if(current.data.equals(data)){
+                    current.previous.next = current.next;
+                    current.next.previous = current.previous;
+                    len--;
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+    /**
+     *<b> Removes the data at the specified index.</b>
+     * @param index The position in the list at which to remove the data.
+     * @return The data removed.
+     */
+    public E remove(int index){
+        if(index == 0){
+            return removeFirst();
+        }else if(index == len-1){
+            return removeLast();
+        }
+        E data;
+        try{ 
+            data = get(index);
+            remove(data);
+        }catch(NoSuchElementException e){
+            System.out.println(e);
+            data = null;
+        }
+        return data;
+    }
+
+    /**
+     *<b> Removes the first element in the list.</b>
+     * @return The new first element in the list.
+     */
+    public E removeFirst(){
+        try {
+            first = first.next;
+            first.previous = null;
+            len--;
+        }catch (NullPointerException e){
+            throw new IndexOutOfBoundsException();
+        }
+        return get(0);
+    }
+
+    /**
+     *<b> Removes the last element in the list.</b>
+     * @return The new last element in the list.
+     */
+    public E removeLast(){
+        E data = (len > 0) ? get(len-1):get(0);
+        try{
+            last = last.previous;
+            last.next = null;
+            len--;
+        }catch (NullPointerException e){
+            //First Element does not have a previous
+            len = 0;
+        }
+        return data;
+    }
+    /**
+     *<b> Forms the list into an array.</b>
+     * @return An array of Type E
+     */
+    public Object[] toArray(){
+        @SuppressWarnings("unchecked")
+        Object[] toArray = (E[]) new Object[len];
+        int index = 0;
+        for(ListNode<E> current = first; current !=null; current = current.next){
+            toArray[index] = current.data;
+            index++;
+        }
+        return toArray;
+    }
+
+    public static void main(String[] args) {
+        MyLinkedList<String> l = new MyLinkedList<String>();
+        
+        for (int i=0; i<1000; i++) {
+            l.add("Item " + i);
+            l.add(0,"Item " + i);
+        }
+        l.remove(0);
+        System.out.println("remove = " + (l.indexOf("Item 999")==1998));
+    }
+
+
+}
+
+/**
+ *<b> A node of MyLinkedList.<br></b>
+ * Has a reference to previous, and next node.
+ * @author Robert Rico
+ * @param <E> The data type of node to make.
+ */
+class ListNode<E> {
+    public E data;
+    public ListNode<E> next;
+    public ListNode<E> previous;
+    public ListNode(E data, ListNode<E> next, ListNode<E> previous) {
+        this.data = data;
+        this.next = next;
+        this.previous = previous;
+    }
+}/**
+  * <b>MyIterator</b>
+  * An iterator for MyLinkedList
+  * <p>
+  *<b> A class that enables foreach implementation within the MyLinkedList class</b>
+  * @version 1.0.0
+  * @see MyLinkedList
+  */
+class MyIterator<E> implements Iterator<E>{
+    /* @param first    the first ListNode to be passed in
+     * @param next     the nextnode in the LinkedList
+     * @param nextInd  the iterator integer to proceed through the linked list
+     * @param len      the current length of the LinkedList
+     */
+    private ListNode<E> first;
+    private ListNode<E> next;
+    private int nextInd;
+    private int len;
+    /**
+     *<b> Constructs the iterator.</b>
+     * @param first The first element in the list.
+     * @param next The Next element in the list.
+     * @param len The total size of the list.
+     */
+    public MyIterator(ListNode<E> first,ListNode<E> next,int len){
+        this.len = len;
+        this.first = first;
+        this.next = first;
+        next = first.next;
+        for(nextInd = 0; nextInd < 0; nextInd++){
+            next = next.next;
+        }
+    }
+    /**
+     *<b> Determines if the list has another element. </b>
+     * @return True if the list has another element to traverse.
+     */
+    public boolean hasNext() {
+        return nextInd != len;
+    }
+
+    /**
+     *<b> Goes to the next element in the list.</b>
+     */
+    public E next() {
+        if(nextInd == len){
+            throw new NoSuchElementException();
+        }
+        first = next;
+        next = next.next;
+        nextInd++;
+        return first.data;
+    }
+
+    /**
+     *<b> Unsupported method.</b>
+     */
+    public void remove() {
+        try{
+            throw new UnsupportedOperationException();
+        } catch (UnsupportedOperationException e){
+            System.out.println(e);
+        }
+    }
+}
