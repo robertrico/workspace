@@ -5,3 +5,4 @@ What mnemonic is used for the subtract instruction?
 What mnemonic is used for the compare instruction?
 What mnemonic is used for the jump instruction?
 What mnemonic is used for the loop instruction?
+Which register is used for the Stack Pointer?

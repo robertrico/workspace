@@ -1,37 +1,11 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
-
-
-//Constant Defintions
-static const SIZEOFBANK=64;
-static const SIZEOFWORDS=64;
-static const int key[4] = {2,3,1,4};
-
-//Prototypes
-void wordbank(char **a,char **b);
-void answerbank(char **b,int num);
-void ask();
-bool isinarray(long val, long *arr, long size);
-char toLowerCase(char *buf);
+#include "studyguide.h"
 
 //Main function
 int main(int argc, char *argv[]){
 
     int i;
-    char **a = malloc(sizeof *a * SIZEOFBANK);
-    if (a){
-        for (i = 0; i < SIZEOFBANK; i++){
-            a[i] = malloc(sizeof *a[i] * SIZEOFWORDS);
-        }
-    }
-    char **b = malloc(sizeof *a * SIZEOFBANK);
-    if (b){
-        for (i = 0; i < SIZEOFBANK; i++){
-            b[i] = malloc(sizeof *b[i] * SIZEOFWORDS);
-        }
-    }
+    struct Arr *a = Arr_Create(10,20);
+    struct Arr *b = Arr_Create(10,20);
 
     wordbank(a,b);
 
@@ -42,14 +16,9 @@ int main(int argc, char *argv[]){
     return 0;
 }
 
-char toLowerCase(char *buf){
-    int i;
-    for(i = 0; buf[i]; i++){
-        buf[i] = tolower(buf[i]);
-    }
-}
 
-void ask(char **a,char **b){
+
+void ask(struct Arr *a,struct Arr *b){
     int x;
     bool trigger = false;
     char buf[SIZEOFWORDS];
@@ -65,18 +34,18 @@ void ask(char **a,char **b){
     x = 0; //Recycle x to iterate through the array in file
 
     while(!trigger){
-        if (strcmp(a[x],"") == 0){
+        if (strcmp(a->array[x],"") == 0){
             trigger = true;
             break;
         }
-        printf("\n%s",a[x]);
+        printf("\n%s",a->array[x]);
         //printf("\n%s",b[x]);
         printf("\n%s","Your Answer: ");
         fgets(buf, sizeof(buf), stdin);
         toLowerCase(buf);
         if ( buf != NULL){
             buf[strlen(buf)-1] = '\0';
-            if (strcmp(b[x],buf) == 0){
+            if (strcmp(b->array[x],buf) == 0){
                 printf("\n%s\n","Correct!");
                 x++;
                 continue;
@@ -96,20 +65,11 @@ void ask(char **a,char **b){
 
 }
 
-bool isinarray(long val, long *arr, long size){
-    int i;
-    for (i=0; i < size; i++) {
-        if (arr[i] == val)
-            return true;
-    }
-    return false;
-}
-
 //build array from file
-void wordbank(char **a,char **b){
+void wordbank(struct Arr *a,struct Arr *b){
     int i;
     long filearr[32] = {0};
-    char *files[] = {"test.txt"};
+    char *files[] = {"assembly.txt"};
     for (i = 0;i < sizeof(files)/sizeof(files[0]); i++){
         printf("%d %s\n", i, files[i]);
     }
@@ -127,12 +87,10 @@ void wordbank(char **a,char **b){
 
             char stuff[SIZEOFBANK];
             char line[SIZEOFWORDS];
-            int x;
-            x = 0;
-            while(fgets(line,SIZEOFBANK,f)){
+
+            while(fgets(line,64,f)){
                 sscanf (line, "%[^\n]", stuff);
-                strcpy(a[x],stuff);
-                x++;
+                addTo(a,strdup(stuff));
             }
 
             fclose(f);
@@ -145,20 +103,17 @@ void wordbank(char **a,char **b){
     }
 
 }
-void answerbank(char **b,int num){
+void answerbank(struct Arr *b,int num){
     int i;
     char file[16];
     sprintf(file,"answers%d.txt",num);
     FILE *f = fopen(file, "rt");
     char stuff[SIZEOFBANK];
     char line[SIZEOFWORDS];
-    int x;
 
-    x = 0;
     while(fgets(line,SIZEOFBANK,f)){
         sscanf (line, "%[^\n]", stuff);
-        strcpy(b[x],stuff);
-        x++;
+        addTo(b,strdup(stuff));
     }
 
     fclose(f);

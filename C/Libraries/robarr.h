@@ -1,11 +1,13 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 //prototypes
 char** array(char * pnt, int size, int indexSize);
 struct Arr;
-void add(struct Arr *which,char *word);
+void addTo(struct Arr *which,char *word);
 void printArr(struct Arr *which,int position);
-struct Arr *Arr_Create(int size);
+struct Arr *Arr_Create(int size,int wordSize);
+bool isinarray(long val, long *arr, long size);
 
 char** array(char * pnt, int size,int indexSize){
     int i;
@@ -24,7 +26,7 @@ struct Arr {
     int position;
 };
 
-void add(struct Arr *which, char *word){
+void addTo(struct Arr *which, char *word){
     int i = which->position;
     which->array[i] = word;
     which->position += 1;
@@ -34,11 +36,11 @@ void printArr(struct Arr *which, int position){
     printf("%s\n",which->array[position]);
 }
 
-struct Arr *Arr_Create(int size){
+struct Arr *Arr_Create(int size,int wordSize){
     struct Arr *make = malloc(sizeof(struct Arr));
     assert(make != NULL);
 
-    char **a = array(*a,size,10);
+    char **a = array(*a,size,wordSize);
 
     make->position = 0;
     make->array = a;
@@ -47,4 +49,11 @@ struct Arr *Arr_Create(int size){
 
     return make;
 }
-
+bool isinarray(long val, long *arr, long size){
+    int i;
+    for (i=0; i < size; i++) {
+        if (arr[i] == val)
+            return true;
+    }
+    return false;
+}
