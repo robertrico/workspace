@@ -1,6 +1,5 @@
 #ifndef _studyguide_h
 #define _studyguide_h
-#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
