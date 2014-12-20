@@ -1,50 +1,115 @@
 #include <string.h>
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "robstring.h"
-void convert(struct Arr *tokens);
-void convert(struct Arr *tokens){
-    char *converted;
-    struct Arr *stack = Arr_Create(32,32);
+#include "roblibs.h"
+void convert(Arr *tokens,Arr *operators);
+void buildOp(Arr *ops);
+bool isLeftAssociative(char *numOp);
+bool hasPrecedence(char *topOfStack,char *numOp);
 
+
+bool isLeftAssociative(char *numOp)
+{
+    return !(numOp == "^");
+}
+//TODO Probably don't need all these bools
+bool hasPrecedence(char *topOfStack,char *numOp)
+{
+    bool stackIsHigher = topOfStack == "*" || topOfStack == "/"; 
+    bool currentOpIsLower = numOp == "+" || numOp == "-"; 
+    if(stackIsHigher && currentOpIsLower){
+        return false;
+    }else{ 
+        return true;
+    }
+}
+
+//TODO needs to returne the converted
+void convert(Arr *tokens,Arr *operators)
+{
+    //Create and allocate memory for final converted string
+    char *converted;
+    converted = malloc(128);
+
+
+    //create Arr structure to be used as stack
+    Stack *stack = Stack_Init(32,32);
+
+    //iterative counter
     int i;
     i = 0;
-    while(tokens->array[i] != NULL){
-        if(*tokens->array[i] == '('){
-            push(stack,tokens->array[i]);
-        }else if(*tokens->array[i] == ')'){
-            while(*tokens->array[i] != '('){
 
+    while(*tokens->array[i] != '\000'){
+        if(*tokens->array[i] == '('){
+            stack->push(stack,tokens->array[i]);
+        }else if(*tokens->array[i] == ')'){
+            while(*stack->peek(stack) != '('){
+                //contatenate 
+                converted = strcat(converted,pop(stack));
             }
+            stack->pop(stack);
+        }else if(contains(operators,tokens->array[i])){
+            /*TODO Stack is Empty on first pass. Stop if from faulting*/
+            /*XXX if stack->peek(stack) != null */
+            if(hasPrecedence(stack->peek(stack),tokens->array[i]))
+                converted = strcat(converted,pop(stack));
+            stack->push(stack,tokens->array[i]);
+        }else{
+                //contatenate 
+            converted = strcat(converted,tokens->array[i]);
         }
-        printArr(tokens,i);
-        fflush(stdout);
         i++;
     }
-    int x;
-    for(x = 0; x < stack->position; x++){
-        printArr(stack,x);
-        fflush(stdout);
+
+    //concatenate the rest of the stack onto string
+    int x = stack->position-1;
+    while(!stack->isEmpty(stack)){
+        strcat(converted,stack->pop(stack));
+        x--;
     }
+
+    printf("\n%s",converted);
     printf("\n");
 }
 
+/**
+ * Create Arr structure of operators to 
+ * test against
+ */
+void buildOp(Arr *ops)
+{
+    addTo(ops,"+");
+    addTo(ops,"-");
+    addTo(ops,"/");
+    addTo(ops,"*");
+    addTo(ops,"^");
+    addTo(ops,'\0');
+}
 
+int main()
+{
+    Arr *tokens = Arr_Create(32,32);
 
-int main(){
-    struct Arr *tokens = Arr_Create(32,32);
+    //build operators structure
+    Arr *operators = Arr_Create(32,32);
+    buildOp(operators);
+
     char *equation;
     equation = malloc(128);
 
     fgets(equation,128,stdin);
 
+    //@source robstring.h
     tokenize(tokens,equation);
+
     int i;
     for(i = 0; i < tokens->position; i++){
+        //@source robarr.h
         printArr(tokens,i);
     }
 
-    convert(tokens);
+    convert(tokens,operators);
     free(tokens);
     return 0;
 }
