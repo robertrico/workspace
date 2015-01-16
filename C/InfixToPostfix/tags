@@ -4,7 +4,8 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-buildOp	intopost.c	/^void buildOp(Arr *ops){$/;"	f
-convert	intopost.c	/^void convert(Arr *tokens,Arr *operators){$/;"	f
-isLeftAssociative	intopost.c	/^bool isLeftAssociative(char *numOp){$/;"	f
-main	intopost.c	/^int main(){$/;"	f
+buildOp	intopost.c	/^void buildOp(Arr *ops)$/;"	f
+convert	intopost.c	/^void convert(Arr *tokens,Arr *operators)$/;"	f
+hasPrecedence	intopost.c	/^bool hasPrecedence(char *topOfStack,char *numOp)$/;"	f
+isLeftAssociative	intopost.c	/^bool isLeftAssociative(char *numOp)$/;"	f
+main	intopost.c	/^int main()$/;"	f

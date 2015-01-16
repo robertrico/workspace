@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "roblibs.h"
+#include "macros.h"
+
+//YAY, now you can call shit, without being redundant
+
 void convert(Arr *tokens,Arr *operators);
 void buildOp(Arr *ops);
 bool isLeftAssociative(char *numOp);
@@ -42,7 +46,8 @@ void convert(Arr *tokens,Arr *operators)
 
     while(*tokens->array[i] != '\000'){
         if(*tokens->array[i] == '('){
-            stack->push(stack,tokens->array[i]);
+            push(tokens->array[i]);
+            //stack->push(stack,tokens->array[i]);
         }else if(*tokens->array[i] == ')'){
             while(*stack->peek(stack) != '('){
                 //contatenate 
@@ -50,11 +55,12 @@ void convert(Arr *tokens,Arr *operators)
             }
             stack->pop(stack);
         }else if(contains(operators,tokens->array[i])){
-            /*TODO Stack is Empty on first pass. Stop if from faulting*/
-            /*XXX if stack->peek(stack) != null */
-            if(hasPrecedence(stack->peek(stack),tokens->array[i]))
+            //when there is an operator inside the paren,failes
+            //figure out how to compare it.
+            if(stack->peek(stack) != '\0' && (hasPrecedence(stack->peek(stack),tokens->array[i])))
                 converted = strcat(converted,pop(stack));
-            stack->push(stack,tokens->array[i]);
+            push(tokens->array[i]);
+            //stack->push(stack,tokens->array[i]);
         }else{
                 //contatenate 
             converted = strcat(converted,tokens->array[i]);
