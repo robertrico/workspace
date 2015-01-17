@@ -71,6 +71,8 @@ void push(Stack *stack,char * word){
     stack->position += 1;
 }
 char * peek(Stack *stack){
+    if(stack->position-1 < 0) 
+        return '\0';
     return  stack->elements[stack->position-1];
 }
 bool isEmpty(Stack *stack){
