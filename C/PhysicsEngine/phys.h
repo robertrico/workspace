@@ -17,7 +17,9 @@ struct ball{
 };
 struct parameters{
     double height;
+    double velocity;
 };
 
 /* Declarations */
-double calculate(struct ball object,struct parameters instance);
+double noAccel(struct parameters instance);
+double quad(struct parameters instance,bool plus);

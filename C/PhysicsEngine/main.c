@@ -5,10 +5,10 @@ int main()
     double radius = 0.00;
     double mass = 0.00;
     double height = 0.00;
+    double velocity = 0.00;
     char *buff;
 
-    printf("%s","What is the radius of the ball?\n");
-    buff = malloc(16);
+    /*printf("%s","What is the radius of the ball?\n");
     fgets(buff,sizeof(buff),stdin);
     radius = strtod(buff,NULL);
 
@@ -16,20 +16,47 @@ int main()
     fgets(buff,sizeof(buff),stdin);
     mass = strtod(buff,NULL);
 
-    struct ball newb = {mass,radius};
+    struct ball newb = {mass,radius};*/
+
+    buff = malloc(128);
 
     printf("%s","At what height is the ball dropped?\n");
     fgets(buff,sizeof(buff),stdin);
     height = strtod(buff,NULL);
 
-    struct parameters instance = {height};
+    /*double result = noAccel(newb,instance);
+    printf("It took the ball %f seconds to fall %f meters.\n",result,instance.height);*/
 
-    double result = calculate(newb,instance);
-    printf("It took the ball with radius %f, and mass %f, %f seconds to fall %f meters.\n",newb.radius,newb.mass,result,instance.height);
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+    //fflush(stdin);
+
+    printf("%s","At what velocity is the ball thrown down?\n");
+    fgets(buff,sizeof(buff),stdin);
+    velocity = strtod(buff,NULL);
+
+    struct parameters instance = {height,velocity};
+
+    double pos = quad(instance,true);
+    double neg = quad(instance,false);
+
+    double result = (neg > pos) ? neg:pos;
+    printf("It took the ball %f seconds to fall %f meters.\n",result,instance.height);
     
     return 0;
 }
-double calculate(struct ball object,struct parameters instance)
+double quad(struct parameters instance,bool plus)
+{
+    double sqRoot = sqrt(pow(instance.velocity,2)+(2*GRAV*instance.height));
+    double result;
+    if(plus){
+        result = (-instance.velocity) + sqRoot;
+    }else{
+        result = (-instance.velocity) - sqRoot;
+    }
+    return result/GRAV;
+}
+double noAccel(struct parameters instance)
 { 
     /* The distance that an object travels under constant acceleration is given by the formula:
         distance = 1/2 × acceleration × time2 + intial speed × time
