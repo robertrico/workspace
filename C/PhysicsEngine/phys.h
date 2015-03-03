@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 #include <stdbool.h>
 
 /* Constants*/
@@ -20,6 +21,6 @@ struct parameters{
     double velocity;
 };
 
-/* Declarations */
+/* Prototypes */
 double noAccel(struct parameters instance);
 double quad(struct parameters instance,bool plus);
