@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 int
-main (int   argc,
+meen (int   argc,
       char *argv[])
 {
     mongoc_client_t *client;
